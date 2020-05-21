@@ -1,10 +1,10 @@
 import { StoriesParams } from 'storyblok-js-client'
-import {LmStoryblokService} from 'lumen-cms-core'
+import { CONFIG, LmStoryblokService } from 'lumen-cms-core'
 import { AppApiRequestPayload } from 'lumen-cms-core/src/typings/app'
 import { endMeasureTime, startMeasureTime } from './timer'
 import { checkCacheFileExists, readCacheFile, writeCacheFile } from './fileCache'
 
-const rootDirectory = process.env.rootDirectory
+const rootDirectory = CONFIG.rootDirectory
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
@@ -86,7 +86,7 @@ type ApiProps = {
   isLandingPage?: boolean
   ssrHostname?: string
 }
-const configLanguages = (process.env.languages && process.env.languages.split(',')) || []
+const configLanguages = CONFIG.languages
 
 export const initSharedContentFromStoryblok = async () => {
 
@@ -142,10 +142,10 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, ssrH
     LmStoryblokService.get(`cdn/stories/${pageSlug}`)
   ]
 
-  if (process.env.suppressSlugLocale && configLanguages.length > 1 && !isLandingPage) {
+  if (CONFIG.suppressSlugLocale && configLanguages.length > 1 && !isLandingPage) {
     let [, ...languagesWithoutDefault] = configLanguages // make sure default language is always first of array
-    if (process.env.suppressSlugIncludeDefault) {
-      languagesWithoutDefault.unshift(process.env.defaultLocale)
+    if (CONFIG.suppressSlugIncludeDefault) {
+      languagesWithoutDefault.unshift(CONFIG.defaultLocale)
     }
     languagesWithoutDefault.forEach((locale) => {
       all.push(LmStoryblokService.get(`cdn/stories/${locale}/${pageSlug}`))
@@ -157,7 +157,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, ssrH
   if (page === null && otherPageLanguages.length) {
     otherPageLanguages.forEach((value, index) => {
       if (value) {
-        locale = configLanguages[process.env.suppressSlugIncludeDefault ? index : index + 1] // overwrite locale
+        locale = configLanguages[CONFIG.suppressSlugIncludeDefault ? index : index + 1] // overwrite locale
         page = value // overwrite page values of localized page
       }
     })

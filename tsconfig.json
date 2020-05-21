@@ -20,7 +20,7 @@
     "baseUrl": "./",
     "paths": {
       "@polyfills": [
-        "src/client/polyfills.js"
+        "node_modules/lumen-cms-core/client/polyfills.js"
       ]
     }
   },

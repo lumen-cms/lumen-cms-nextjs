@@ -6,5 +6,5 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 
 module.exports = function (plugins = []) {
   plugins.unshift([withBundleAnalyzer])
-  return config(env, plugins)
+  return config(plugins)
 }

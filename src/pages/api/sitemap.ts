@@ -13,7 +13,7 @@ export default async function(req: IncomingMessage, res: ServerResponse) {
 
     const stories: PageItem[] = await LmStoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
     const smStream = new SitemapStream({ hostname: 'https://' + req.headers.host })
-    const ignoreList = (process.env.sitemapIgnorePath && process.env.sitemapIgnorePath.split(',')) || []
+    const ignoreList = (process.env.SITEMAP_IGNORE_PATH && process.env.SITEMAP_IGNORE_PATH.split(',')) || []
 
     ignoreList.push('demo-content')
 

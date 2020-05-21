@@ -1,17 +1,17 @@
+import {CONFIG} from 'lumen-cms-core'
 export const prepareForStoryblok = (slug: string | string[] = 'home') => {
   let knownLocale = undefined
   let isLandingPage = undefined
   let slugAsArray = Array.isArray(slug) ? slug : [slug]
 
-  const rootDirectory = process.env.rootDirectory
+  const rootDirectory = CONFIG.rootDirectory
   if (rootDirectory) {
     // if the first entry is not root directory append root directory
     slugAsArray[0] !== rootDirectory && slugAsArray.unshift(rootDirectory)
   } else {
-    const configLanguages = (process.env.languages && process.env.languages.split(',')) || []
-    if (!!process.env.suppressSlugLocale) {
+    if (!!CONFIG.suppressSlugLocale) {
       // suppress slug locale so remove any language key from the array (mainly for storyblok backend)
-      if (configLanguages.includes(slugAsArray[0])) {
+      if (CONFIG.languages.includes(slugAsArray[0])) {
         // first directory is a locale
         if (slugAsArray.length === 1) {
           // landing pages of locale
@@ -26,7 +26,7 @@ export const prepareForStoryblok = (slug: string | string[] = 'home') => {
           slugAsArray.shift() // remove locale from path
         }
       }
-    } else if (configLanguages.includes(slugAsArray[0])) {
+    } else if (CONFIG.languages.includes(slugAsArray[0])) {
       // activated multi lang handling
       knownLocale = slugAsArray[0]
       if (slugAsArray.length === 1) {
