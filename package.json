@@ -1,0 +1,41 @@
+{
+  "name": "lumen-cms-nextjs",
+  "version": "1.0.0",
+  "description": "NextJS and Storyblok with LumenCMS",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "dev": "rimraf app-content*json && next",
+    "analyze": "BUNDLE_ANALYZE=true npm run build",
+    "start": "next start",
+    "build": "rm -rf .next && next build",
+    "build-ts": "tsdx build --tsconfig ./tsconfig.build.json --target node",
+    "watch": "tsdx watch --tsconfig ./tsconfig.build.json --target node",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "author": "Dominic Garms",
+  "license": "MIT",
+  "dependencies": {
+    "lumen-cms-core": "^0.39.24",
+    "next": "^9.4.2",
+    "next-compose-plugins": "2.2.0",
+    "sitemap": "^6.1.4",
+    "storyblok-react": "0.0.10"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "^9.4.2",
+    "@types/node": "^14.0.4",
+    "tsdx": "^0.13.2",
+    "typescript": "^3.9.3"
+  }
+}
