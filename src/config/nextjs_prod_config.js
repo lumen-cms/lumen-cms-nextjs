@@ -3,7 +3,7 @@ const withPlugins = require('next-compose-plugins')
 // const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin')
 // const path = require('path')
 
-module.exports = function (plugins = []) {
+module.exports = function (env = {}, plugins = []) {
   const config = {
     experimental: {
       modern: true,
@@ -13,6 +13,7 @@ module.exports = function (plugins = []) {
         ]
       }
     },
+    env,
     // reactStrictMode: true, // => not working currently
     webpack: (config) => {
       // Fixes npm packages that depend on `fs` module
