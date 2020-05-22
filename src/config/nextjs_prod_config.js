@@ -1,5 +1,5 @@
 const withPlugins = require('next-compose-plugins')
-// const withTM = require('next-transpile-modules')(['lumen-cms-core'])
+const withTM = require('next-transpile-modules')(['lumen-cms-core', 'lumen-cms-nextjs'])
 // const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin')
 // const path = require('path')
 
@@ -7,9 +7,10 @@ module.exports = function (env = {}, plugins = []) {
   const config = {
     experimental: {
       modern: true,
+      optionalCatchAll: true,
       async rewrites () {
         return [
-          // {source: '/sitemap.xml', destination: '/api/sitemap'}
+          {source: '/sitemap.xml', destination: '/api/sitemap'}
         ]
       }
     },
@@ -49,7 +50,7 @@ module.exports = function (env = {}, plugins = []) {
     // next-offline
     // [withOffline],
     // [withSourceMaps],
-    // [withTM]
+    [withTM]
   ]
 
   if (plugins.length) {
