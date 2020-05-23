@@ -15,7 +15,7 @@ const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppP
   }
   try {
 
-    console.log('pagesGetStaticProps', previewData)
+    console.log('pagesGetStaticProps', previewData, props)
     if (previewData && previewData.query) {
       LmStoryblokService.setQuery(previewData.query)
     }
