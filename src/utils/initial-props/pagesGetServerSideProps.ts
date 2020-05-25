@@ -25,7 +25,6 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
 
     const pageProps = await getPageProps(slug, hostname)
     endMeasureTime()
-    console.log("before finish ", typeof pageProps.settings)
     return {
       props: {
         ...pageProps,

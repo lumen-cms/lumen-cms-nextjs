@@ -8,7 +8,6 @@ import { collectComponentData } from './traversePageContent'
 const getPageProps = async (slug: string | string[], ssrHostname?: string): Promise<AppPageProps> => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
-  console.log(pageSlug, knownLocale)
   let { page, settings, allCategories = [], allStories = [], locale, allStaticContent = [] } = await apiRequestResolver({
     pageSlug,
     locale: knownLocale,

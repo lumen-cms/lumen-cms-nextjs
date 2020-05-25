@@ -1,6 +1,6 @@
 import Document from 'next/document'
 import React from 'react'
-import { documentGetInitialProps, LmCoreDocument } from 'lumen-cms-core'
+import { documentGetInitialProps, LmCoreDocument } from '../components/CoreDocument'
 
 export default class MyDoc extends Document {
   render() {
