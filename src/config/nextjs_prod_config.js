@@ -7,7 +7,6 @@ module.exports = function (env = {}, plugins = []) {
   const config = {
     experimental: {
       modern: true,
-      optionalCatchAll: true,
       async rewrites () {
         return [
           {source: '/sitemap.xml', destination: '/api/sitemap'}

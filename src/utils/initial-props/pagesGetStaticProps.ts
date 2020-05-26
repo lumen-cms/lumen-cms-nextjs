@@ -14,7 +14,6 @@ const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppP
     return { props: getBaseProps({ type: 'not_supported' }) }// do nothing _dev_ mode is active
   }
   try {
-
     console.log('pagesGetStaticProps', previewData, props)
     if (previewData && previewData.query) {
       LmStoryblokService.setQuery(previewData.query)
