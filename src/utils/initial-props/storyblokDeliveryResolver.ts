@@ -88,15 +88,6 @@ type ApiProps = {
 }
 const configLanguages = CONFIG.languages
 
-export const initSharedContentFromStoryblok = async () => {
-
-  let [, ...languagesWithoutDefault] = configLanguages || []
-  await Promise.all([
-    fetchSharedContentFromStoryblok(),
-    ...languagesWithoutDefault.map((locale => fetchSharedContentFromStoryblok(locale)))
-  ]).then(() => console.log('fetch shared is finished!! cache should be set up'))
-}
-
 export const fetchSharedStoryblokContent = (locale?: string) => {
   return Promise.all([
     LmStoryblokService.get(getSettingsPath({ locale })),

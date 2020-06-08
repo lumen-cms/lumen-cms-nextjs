@@ -1,13 +1,10 @@
 import { GetStaticPaths } from 'next'
 import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
 import { internalLinkHandler, LmStoryblokService } from 'lumen-cms-core'
-import { initSharedContentFromStoryblok } from './storyblokDeliveryResolver'
 import { getStoryblokPagesConfig } from './storyblokPagesConfig'
 
 const pagesGetStaticPaths: GetStaticPaths = async () => {
   const stories: PageItem[] = await LmStoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
-
-  await initSharedContentFromStoryblok()
 
   let paths = stories.map(pageItem => {
     return {

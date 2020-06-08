@@ -4,7 +4,7 @@ import { documentGetInitialProps, LmCoreDocument } from '../components/CoreDocum
 
 export default class MyDoc extends Document {
   render() {
-    return <LmCoreDocument props={this.props.__NEXT_DATA__.props} isDevelopment={this.props.isDevelopment} />
+    return <LmCoreDocument props={this.props.__NEXT_DATA__.props.pageProps} isDevelopment={this.props.isDevelopment} />
   }
 }
 MyDoc.getInitialProps = documentGetInitialProps

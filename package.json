@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-nextjs",
-  "version": "1.0.23",
+  "version": "1.0.28",
   "description": "NextJS and Storyblok with LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -27,7 +27,7 @@
   "author": "Dominic Garms",
   "license": "MIT",
   "dependencies": {
-    "lumen-cms-core": "0.39.49",
+    "lumen-cms-core": "0.39.52",
     "next": "9.4.4",
     "next-compose-plugins": "2.2.0",
     "next-transpile-modules": "3.3.0",
