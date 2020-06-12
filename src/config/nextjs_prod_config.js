@@ -6,7 +6,7 @@ const withTM = require('next-transpile-modules')(['lumen-cms-core', 'lumen-cms-n
 module.exports = function (env = {}, plugins = []) {
   const config = {
     experimental: {
-      modern: true,
+      // modern: true,
       async rewrites () {
         return [
           {source: '/sitemap.xml', destination: '/api/sitemap'}

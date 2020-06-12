@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from 'next'
 
 export default function preview(req: NextApiRequest, res: NextApiResponse) {
   let currentSlug = req.query.slug
-  if (!currentSlug || typeof currentSlug !== 'string') {
+
+  console.log(req.query)
+  if (!currentSlug || typeof currentSlug !== 'string' || req.query.secret !== 'lm-qrxswkwkwkw') {
     return res.status(401).json({ message: 'Invalid token/slug' })
   }
   currentSlug = currentSlug.startsWith('/') ? currentSlug : `/${currentSlug}`
@@ -21,10 +23,12 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
   // res.writeHead(307, { Location: currentSlug })
   // res.writeHead(307, { Location: `${currentSlug}?${searchParams.toString()}` })
 
-  res.write(
-    `<!DOCTYPE html><html><head><meta http-equiv="Refresh" content="0; url=${currentSlug}" />
-    <script>window.location.href = '${currentSlug}'</script>
-    </head>`
-  )
+  // res.write(
+  //   `<!DOCTYPE html><html><head><meta http-equiv="Refresh" content="0; url=${currentSlug}" />
+  //   <script>window.location.href = '${currentSlug}'</script>
+  //   </head>`
+  // )
+  res.writeHead(307, { Location: currentSlug })
+
   res.end()
 }
