@@ -9,7 +9,7 @@ const pagesGetStaticPaths: GetStaticPaths = async () => {
   let paths = stories.map(pageItem => {
     return {
       params: {
-        index: internalLinkHandler(pageItem.full_slug as string).split('/').filter(i => i)
+        index:internalLinkHandler(pageItem.full_slug as string).split('/').filter(i => i)
       }
     }
   })

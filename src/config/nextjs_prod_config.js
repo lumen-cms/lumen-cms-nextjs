@@ -1,12 +1,12 @@
 const withPlugins = require('next-compose-plugins')
 const withTM = require('next-transpile-modules')(['lumen-cms-core', 'lumen-cms-nextjs'])
 // const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin')
-// const path = require('path')
+const path = require('path')
 
 module.exports = function (env = {}, plugins = []) {
   const config = {
     experimental: {
-      // modern: true,
+      modern: true,
       async rewrites () {
         return [
           {source: '/sitemap.xml', destination: '/api/sitemap'}
@@ -15,13 +15,20 @@ module.exports = function (env = {}, plugins = []) {
     },
     env,
     // reactStrictMode: true, // => not working currently
-    webpack: (config) => {
+    webpack: (config, options) => {
       // Fixes npm packages that depend on `fs` module
       config.node = {
         fs: 'empty'
       }
 
+      if (options.isServer) {
+        config.externals = ["react", ...config.externals];
+      }
+
       config.resolve = config.resolve || {}
+      config.resolve.alias['react'] = path.join(process.cwd(), 'node_modules/react');
+      config.resolve.alias['react-dom'] = path.join(process.cwd(), 'node_modules/react-dom');
+
       // config.resolve.modules = config.resolve.modules || []
       // config.resolve.modules.push(path.join(__dirname, 'node_modules'))
       // config.resolve.modules.push(path.join(__dirname, 'node_modules/lumen-cms-core'))

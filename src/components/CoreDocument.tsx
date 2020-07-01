@@ -14,7 +14,6 @@ export function LmCoreDocument({ props, isDevelopment }: CoreDocumentProps): JSX
   const googleAnalyticsId = (settings?.setup_google_analytics) || CONFIG.GA
   const locale = settings?.setup_language || CONFIG.defaultLocale
 
-  console.log('in core document: ', isDevelopment, googleAnalyticsId)
   return (
     <Html lang={locale ? locale : undefined}>
       <Head />
