@@ -1,7 +1,6 @@
 import { StoriesParams } from 'storyblok-js-client'
 import { CONFIG, LmStoryblokService } from 'lumen-cms-core'
 import { AppApiRequestPayload } from 'lumen-cms-core/src/typings/app'
-import { endMeasureTime, startMeasureTime } from './timer'
 import { checkCacheFileExists, readCacheFile, writeCacheFile } from './fileCache'
 
 const rootDirectory = CONFIG.rootDirectory
@@ -99,25 +98,25 @@ export const fetchSharedStoryblokContent = (locale?: string) => {
 
 export const fetchSharedContentFromStoryblok: any | void = async (locale?: string) => {
   const cacheName = `app-content${locale ? '-' + locale : ''}`
-  startMeasureTime('start get file cache' + ' ' + cacheName)
+  // startMeasureTime('start get file cache' + ' ' + cacheName)
 
   if (checkCacheFileExists(cacheName)) {
     //file exists
-    console.log('read existing cache file', cacheName)
+    // console.log('read existing cache file', cacheName)
     const data = await readCacheFile(cacheName)
     return data
   } else {
-    console.log('write cache file', cacheName)
+    // console.log('write cache file', cacheName)
     const context = await fetchSharedStoryblokContent(locale)
     await writeCacheFile(cacheName, context)
     return context
   }
-  endMeasureTime('finish get file cache')
+  // endMeasureTime('finish get file cache')
 }
 
 const fetchContentBasedOnRequest = async ({ ssrHostname, locale }: { ssrHostname?: string, locale?: string }) => {
   if (ssrHostname) {
-    console.log('hostname:::SSR', ssrHostname)
+    // console.log('hostname:::SSR', ssrHostname)
     return await fetch(ssrHostname + '/api/shared-data' + (locale ? '/' + locale : ''))
       .then((res: any) => res.json())
   } else {

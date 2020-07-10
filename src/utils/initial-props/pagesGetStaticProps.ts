@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next'
-import {LmStoryblokService} from 'lumen-cms-core'
+import { LmStoryblokService } from 'lumen-cms-core'
 import { AppPageProps } from 'lumen-cms-core/src/typings/app'
-import { endMeasureTime, startMeasureTime } from './timer'
 import { getBaseProps } from './getBaseProps'
 import getPageProps from './getPageProps'
 
@@ -9,17 +8,17 @@ const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppP
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, previewData } = props
   const slug = params?.index || 'home'
-  startMeasureTime('start get static props')
+  // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {
     return { props: getBaseProps({ type: 'not_supported' }) }// do nothing _dev_ mode is active
   }
   try {
-    console.log('pagesGetStaticProps', previewData, props)
+    // console.log('pagesGetStaticProps', previewData, props)
     if (previewData && previewData.query) {
       LmStoryblokService.setQuery(previewData.query)
     }
     const pageProps = await getPageProps(slug)
-    endMeasureTime()
+    // endMeasureTime()
     return {
       props: pageProps
     }

@@ -15,7 +15,7 @@ const getPageProps = async (slug: string | string[], ssrHostname?: string): Prom
     ssrHostname
   })
 
-  console.log('after fetch SSR', typeof page, typeof settings)
+  // console.log('after fetch SSR', typeof page, typeof settings)
   const defaultLocale = CONFIG.defaultLocale || 'en'
   if (defaultLocale && !locale) {
     locale = defaultLocale
