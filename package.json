@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-nextjs",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "NextJS and Storyblok with LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -33,13 +33,13 @@
   },
   "peerDependencies": {
     "next": "^9.5.0",
-    "lumen-cms-core": "^0.50.0",
+    "lumen-cms-core": "^0.50.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "next": "9.5.0",
-    "lumen-cms-core": "^0.50.0",
+    "lumen-cms-core": "^0.50.1",
     "@next/bundle-analyzer": "^9.5.0",
     "@types/node": "^14.0.5",
     "tsdx": "^0.13.2",
