@@ -7,6 +7,7 @@ import getPageProps from './getPageProps'
 const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppPageProps }> => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, previewData } = props
+  console.log('pagesgetstatic', params)
   const slug = params?.index || 'home'
   // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {

@@ -28,19 +28,19 @@
   "license": "MIT",
   "dependencies": {
     "next-compose-plugins": "2.2.0",
-    "next-transpile-modules": "3.3.0",
+    "next-transpile-modules": "^4.0.1",
     "sitemap": "6.1.5"
   },
   "peerDependencies": {
-    "next": "9.4.4",
-    "lumen-cms-core": "^0.41.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "next": "^9.5.0",
+    "lumen-cms-core": "^0.50.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "next": "9.4.4",
-    "lumen-cms-core": "^0.41.1",
-    "@next/bundle-analyzer": "^9.4.4",
+    "next": "9.5.0",
+    "lumen-cms-core": "^0.50.0",
+    "@next/bundle-analyzer": "^9.5.0",
     "@types/node": "^14.0.5",
     "tsdx": "^0.13.2",
     "react": "16.13.1",

@@ -9,16 +9,11 @@ const pagesGetStaticPaths: GetStaticPaths = async () => {
   let paths = stories.map(pageItem => {
     return {
       params: {
-        index:internalLinkHandler(pageItem.full_slug as string).split('/').filter(i => i)
+        index: internalLinkHandler(pageItem.full_slug as string).split('/').filter(i => i)
       }
     }
   })
-
-  // todo: different loading mode for root folder and language handling
-  // paths = paths.slice(0, 3)
-  //
-  // console.log(paths[0], paths[1], paths[2])
-
+  paths.push({ params: { index: [] } }) // landing page as empty
   return {
     paths,
     fallback: true

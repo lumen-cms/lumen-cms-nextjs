@@ -12,9 +12,7 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
   delete queryParams.slug
 
   console.log('inside preview', queryParams, currentSlug)
-  res.setPreviewData({
-    query: queryParams
-  })
+  res.setPreviewData({})
   //  const searchParams = new URLSearchParams()
   // Object.keys(queryParams).forEach((key) => {
   //   searchParams.append(key, queryParams[key] as string)
