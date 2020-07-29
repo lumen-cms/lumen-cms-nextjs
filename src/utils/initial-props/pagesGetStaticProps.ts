@@ -4,10 +4,10 @@ import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { getBaseProps } from './getBaseProps'
 import getPageProps from './getPageProps'
 
-const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppPageProps }> => {
+const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppPageProps, revalidate?: number }> => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
-  const { params, previewData } = props
-  console.log('pagesgetstatic', params)
+  const { params, previewData, preview } = props
+  console.log('pagesgetstatic', params, preview, previewData)
   const slug = params?.index || 'home'
   // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {
@@ -16,12 +16,14 @@ const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppP
   try {
     // console.log('pagesGetStaticProps', previewData, props)
     if (previewData && previewData.query) {
-      LmStoryblokService.setQuery(previewData.query)
+      LmStoryblokService.setDevMode()
+      LmStoryblokService.setQuery(previewData)
     }
     const pageProps = await getPageProps(slug)
     // endMeasureTime()
     return {
-      props: pageProps
+      props: { ...pageProps, insideStoryblok: !!preview },
+      revalidate: 300
     }
   } catch (e) {
     console.log('error', e)

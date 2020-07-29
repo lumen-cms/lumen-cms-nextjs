@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-nextjs",
-  "version": "1.1.9",
+  "version": "1.2.0",
   "description": "NextJS and Storyblok with LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
