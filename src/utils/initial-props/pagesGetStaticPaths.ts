@@ -13,7 +13,7 @@ const pagesGetStaticPaths: GetStaticPaths = async () => {
       }
     }
   })
-  paths.push({ params: { index: [] } }) // landing page as empty
+  // paths.push({ params: { index: [''] } }) // landing page as empty
   return {
     paths,
     fallback: true

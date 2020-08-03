@@ -6,12 +6,12 @@ const path = require('path')
 module.exports = function (env = {}, plugins = []) {
   const config = {
     experimental: {
-      modern: true,
-      async rewrites () {
-        return [
-          {source: '/sitemap.xml', destination: '/api/sitemap'}
-        ]
-      }
+      modern: true
+    },
+    async rewrites () {
+      return [
+        {source: '/sitemap.xml', destination: '/api/sitemap'}
+      ]
     },
     env,
     // reactStrictMode: true, // => not working currently
@@ -22,12 +22,12 @@ module.exports = function (env = {}, plugins = []) {
       }
 
       if (options.isServer) {
-        config.externals = ["react", ...config.externals];
+        config.externals = ['react', ...config.externals]
       }
 
       config.resolve = config.resolve || {}
-      config.resolve.alias['react'] = path.join(process.cwd(), 'node_modules/react');
-      config.resolve.alias['react-dom'] = path.join(process.cwd(), 'node_modules/react-dom');
+      config.resolve.alias['react'] = path.join(process.cwd(), 'node_modules/react')
+      config.resolve.alias['react-dom'] = path.join(process.cwd(), 'node_modules/react-dom')
 
       // config.resolve.modules = config.resolve.modules || []
       // config.resolve.modules.push(path.join(__dirname, 'node_modules'))

@@ -8,6 +8,7 @@ const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppP
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug
   const { params, previewData, preview } = props
   const slug = params?.index || 'home'
+  console.log('static props', slug, params)
   // startMeasureTime('start get static props')
   if (Array.isArray(slug) && slug[0] === '_dev_') {
     return { props: getBaseProps({ type: 'not_supported' }) }// do nothing _dev_ mode is active

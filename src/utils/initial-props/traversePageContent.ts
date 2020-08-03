@@ -53,6 +53,9 @@ const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<Pa
 
 
 export const traversePageContent = (page: PageStoryblok, lookup = 'list_widget') => {
+  if (!page) {
+    return []
+  }
   const listWidgets = []
   const walkArray = (elements: any[]) => {
     elements.forEach(item => {
