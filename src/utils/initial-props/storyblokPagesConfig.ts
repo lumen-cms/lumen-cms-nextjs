@@ -1,4 +1,5 @@
-import { CONFIG } from 'lumen-cms-core'
+import { CONFIG, LmStoryblokService } from 'lumen-cms-core'
+import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
 
 export function getStoryblokPagesConfig() {
   const params: any = {
@@ -18,4 +19,9 @@ export function getStoryblokPagesConfig() {
     params.starts_with = `${CONFIG.rootDirectory}/`
   }
   return params
+}
+
+export const getAllStoriesOfProject = async (): Promise<PageItem[]> => {
+  const stories: PageItem[] = await LmStoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
+  return stories
 }

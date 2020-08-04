@@ -1,8 +1,8 @@
 import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
-import { internalLinkHandler, LmStoryblokService } from 'lumen-cms-core'
+import { internalLinkHandler } from 'lumen-cms-core'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { IncomingMessage, ServerResponse } from 'http'
-import { getStoryblokPagesConfig } from '../../utils/initial-props/storyblokPagesConfig'
+import { getAllStoriesOfProject } from '../../utils/initial-props/storyblokPagesConfig'
 // import { createGzip } from 'zlib'
 
 
@@ -11,7 +11,7 @@ export default async function(req: IncomingMessage, res: ServerResponse) {
   // res.setHeader('Content-Encoding', 'gzip')
   try {
 
-    const stories: PageItem[] = await LmStoryblokService.getAll('cdn/stories', getStoryblokPagesConfig())
+    const stories: PageItem[] = await getAllStoriesOfProject()
     const smStream = new SitemapStream({ hostname: 'https://' + req.headers.host })
     const ignoreList = (process.env.SITEMAP_IGNORE_PATH && process.env.SITEMAP_IGNORE_PATH.split(',')) || []
 
