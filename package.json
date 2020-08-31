@@ -38,9 +38,9 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "next": "9.5.1",
-    "lumen-cms-core": "^0.54.2",
-    "@next/bundle-analyzer": "^9.5.0",
+    "next": "9.5.2",
+    "lumen-cms-core": "^0.54.5",
+    "@next/bundle-analyzer": "^9.5.2",
     "@types/node": "^14.0.5",
     "tsdx": "^0.13.2",
     "react": "16.13.1",
