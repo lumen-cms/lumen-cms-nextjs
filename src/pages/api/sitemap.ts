@@ -3,6 +3,7 @@ import { internalLinkHandler } from 'lumen-cms-core'
 import { SitemapStream, streamToPromise } from 'sitemap'
 import { IncomingMessage, ServerResponse } from 'http'
 import { getAllStoriesOfProject } from '../../utils/initial-props/storyblokPagesConfig'
+import { SSR_CONFIG } from '../../utils/ssrConfig'
 // import { createGzip } from 'zlib'
 
 
@@ -37,6 +38,7 @@ export default async function(req: IncomingMessage, res: ServerResponse) {
         }
       }
     }
+    await Promise.all(SSR_CONFIG.ssrHooks.sitemap.map(func => func(smStream)))
     smStream.end()
 
     const sitemap = await streamToPromise(smStream)

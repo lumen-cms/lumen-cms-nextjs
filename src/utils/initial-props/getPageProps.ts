@@ -4,6 +4,7 @@ import { CONFIG } from 'lumen-cms-core'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { collectComponentData } from './traversePageContent'
+import { SSR_CONFIG } from '../ssrConfig'
 
 const getPageProps = async (slug: string | string[], ssrHostname?: string): Promise<AppPageProps> => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
@@ -49,7 +50,7 @@ const getPageProps = async (slug: string | string[], ssrHostname?: string): Prom
     listWidgetData: componentData || null
   }
 
-  await Promise.all(CONFIG.ssrHooks.pageProps.map((func) => func(props)))
+  await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))
 
   return props
 }
