@@ -40,7 +40,7 @@ const getPageProps = async (slug: string | string[], ssrHostname?: string): Prom
     // traverse content and fetch list widget data
     componentData = await collectComponentData(pageProps, allCategories, allStories, knownLocale)
   }
-  return {
+  let props = {
     page: pageProps ? { ...pageProps, uuid: page?.data?.story?.uuid } : null,
     settings: settingsProps ? { ...settingsProps, uuid: settings?.data?.story?.uuid } : null,
     allCategories,
@@ -48,6 +48,10 @@ const getPageProps = async (slug: string | string[], ssrHostname?: string): Prom
     locale,
     listWidgetData: componentData || null
   }
+
+  await Promise.all(CONFIG.ssrHooks.pageProps.map((func) => func(props)))
+
+  return props
 }
 
 export default getPageProps

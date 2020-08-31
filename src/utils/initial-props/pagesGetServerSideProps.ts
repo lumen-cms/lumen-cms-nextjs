@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import { LmStoryblokService } from 'lumen-cms-core'
+import { CONFIG, LmStoryblokService } from 'lumen-cms-core'
 import getPageProps from './getPageProps'
 
 
@@ -24,6 +24,7 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
 
     const pageProps = await getPageProps(slug, hostname)
     // endMeasureTime()
+
     return {
       props: {
         ...pageProps,

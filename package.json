@@ -33,13 +33,13 @@
   },
   "peerDependencies": {
     "next": "^9.5.0",
-    "lumen-cms-core": "^0.50.4",
+    "lumen-cms-core": "^0.54.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
     "next": "9.5.1",
-    "lumen-cms-core": "^0.50.4",
+    "lumen-cms-core": "^0.54.2",
     "@next/bundle-analyzer": "^9.5.0",
     "@types/node": "^14.0.5",
     "tsdx": "^0.13.2",
