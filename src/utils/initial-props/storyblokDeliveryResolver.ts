@@ -1,19 +1,12 @@
 import { StoriesParams } from 'storyblok-js-client'
 import { CONFIG, LmStoryblokService } from 'lumen-cms-core'
 import { AppApiRequestPayload } from 'lumen-cms-core/src/typings/app'
-import { checkCacheFileExists, readCacheFile, writeCacheFile } from './fileCache'
 
 const rootDirectory = CONFIG.rootDirectory
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
     promises.map(p => p.catch(() => {
-      // const errorObj = {
-      //   status: e.response && e.response.status,
-      //   url: e.response && e.response.config && e.response.config.url
-      // }
-      // console.log(errorObj)
-
       return null
     }))
   )
@@ -96,37 +89,9 @@ export const fetchSharedStoryblokContent = (locale?: string) => {
   ])
 }
 
-export const fetchSharedContentFromStoryblok: any | void = async (locale?: string) => {
-  const cacheName = `app-content${locale ? '-' + locale : ''}`
-  // startMeasureTime('start get file cache' + ' ' + cacheName)
+export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps): Promise<AppApiRequestPayload> => {
 
-  if (checkCacheFileExists(cacheName)) {
-    //file exists
-    // console.log('read existing cache file', cacheName)
-    const data = await readCacheFile(cacheName)
-    return data
-  } else {
-    // console.log('write cache file', cacheName)
-    const context = await fetchSharedStoryblokContent(locale)
-    await writeCacheFile(cacheName, context)
-    return context
-  }
-  // endMeasureTime('finish get file cache')
-}
-
-const fetchContentBasedOnRequest = async ({ ssrHostname, locale }: { ssrHostname?: string, locale?: string }) => {
-  if (ssrHostname) {
-    // console.log('hostname:::SSR', ssrHostname)
-    return await fetch(ssrHostname + '/api/shared-data' + (locale ? '/' + locale : ''))
-      .then((res: any) => res.json())
-  } else {
-    return await fetchSharedContentFromStoryblok(locale)
-  }
-}
-
-export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, ssrHostname }: ApiProps): Promise<AppApiRequestPayload> => {
-
-  const [settings, categories, stories, staticContent] = await fetchContentBasedOnRequest({ locale, ssrHostname })
+  const [settings, categories, stories, staticContent] = await fetchSharedStoryblokContent(locale)
 
   const all: any[] = [
     LmStoryblokService.get(`cdn/stories/${pageSlug}`)
@@ -153,10 +118,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, ssrH
     })
 
     // make 2nd API calls to fetch locale based settings and other values
-    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await fetchContentBasedOnRequest({
-      locale,
-      ssrHostname
-    })
+    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await fetchSharedStoryblokContent(locale)
 
     return {
       page,
@@ -178,6 +140,4 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, ssrH
     allStaticContent: staticContent,
     listWidgetData: {}
   }
-
-
 }
