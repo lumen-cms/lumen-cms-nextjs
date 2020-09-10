@@ -17,7 +17,6 @@ type SsrConfigProps = {
   }
 }
 
-
 export const SSR_CONFIG: SsrConfigProps = {
   previewToken: process.env.NEXT_PUBLIC_PREVIEW_TOKEN || '',
   publicToken: process.env.NEXT_PUBLIC_PUBLIC_TOKEN || '',
