@@ -2,7 +2,7 @@ import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/do
 import React from 'react'
 import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { ServerStyleSheets } from '@material-ui/core/styles'
-import { SSR_CONFIG } from '..'
+import { SSR_CONFIG } from '../utils/ssrConfig'
 import LmStoryblokService from '../utils/StoryblokService'
 
 type CoreDocumentProps = {

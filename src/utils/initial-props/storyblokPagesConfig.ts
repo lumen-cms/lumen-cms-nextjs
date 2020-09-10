@@ -1,6 +1,6 @@
-import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
 import { SSR_CONFIG } from '../ssrConfig'
 import LmStoryblokService from '../StoryblokService'
+import { PageItem } from '../../typings/generated/schema'
 
 export function getStoryblokPagesConfig() {
   const params: any = {

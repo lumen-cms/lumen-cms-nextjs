@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-nextjs",
-  "version": "1.4.0",
+  "version": "1.4.2",
   "description": "NextJS and Storyblok with LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -16,7 +16,10 @@
     "build-ts": "tsdx build --tsconfig ./tsconfig.build.json --target node",
     "watch": "tsdx watch --tsconfig ./tsconfig.build.json --target node",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublishOnly": "npm run build-ts"
+    "prepublishOnly": "npm run build-ts",
+    "gen-ts-schema": "node generate-ts-schema.js",
+    "fetch-storyblok-components": "storyblok pull-components --space=82895",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "prettier": {
     "printWidth": 80,
@@ -34,17 +37,23 @@
   },
   "peerDependencies": {
     "next": "^9.5.3",
-    "lumen-cms-core": "^0.54.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "next": "^9.5.3",
-    "lumen-cms-core": "^0.54.5",
+    "@graphql-codegen/cli": "^1.17.8",
+    "@graphql-codegen/typescript": "^1.17.9",
+    "@graphql-codegen/typescript-document-nodes": "^1.17.8",
+    "@graphql-codegen/typescript-graphql-files-modules": "^1.17.8",
+    "@graphql-codegen/typescript-operations": "^1.17.8",
     "@next/bundle-analyzer": "^9.5.3",
     "@types/node": "^14.0.5",
-    "tsdx": "^0.13.2",
+    "graphql": "^15.3.0",
+    "lumen-cms-core": "^0.54.5",
+    "next": "^9.5.3",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "storyblok-generate-ts": "^0.2.0",
+    "tsdx": "^0.13.2"
   }
 }

@@ -1,6 +1,6 @@
-import { ListWidgetStoryblok, PageStoryblok } from 'lumen-cms-core/src/typings/generated/components-schema'
 import { StoryData } from 'storyblok-js-client'
-import { CategoryComponent, PageComponent } from 'lumen-cms-core/src/typings/generated/schema'
+import { ListWidgetStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
+import { CategoryComponent, PageComponent } from '../../typings/generated/schema'
 
 const listWidgetFilter = (content: ListWidgetStoryblok, allStories: StoryData<PageComponent>[]) => {
   const filter = (content.tags && content.tags.values) || []
