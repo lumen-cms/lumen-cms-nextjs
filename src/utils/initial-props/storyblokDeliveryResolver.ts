@@ -1,8 +1,9 @@
 import { StoriesParams } from 'storyblok-js-client'
-import { CONFIG, LmStoryblokService } from 'lumen-cms-core'
 import { AppApiRequestPayload } from 'lumen-cms-core/src/typings/app'
+import { SSR_CONFIG } from '../ssrConfig'
+import LmStoryblokService from '../StoryblokService'
 
-const rootDirectory = CONFIG.rootDirectory
+const rootDirectory = SSR_CONFIG.rootDirectory
 
 const resolveAllPromises = (promises: Promise<any>[]) => {
   return Promise.all(
@@ -78,7 +79,7 @@ type ApiProps = {
   isLandingPage?: boolean
   ssrHostname?: string
 }
-const configLanguages = CONFIG.languages
+const configLanguages = SSR_CONFIG.languages
 
 export const fetchSharedStoryblokContent = (locale?: string) => {
   return Promise.all([
@@ -97,10 +98,10 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     LmStoryblokService.get(`cdn/stories/${pageSlug}`)
   ]
 
-  if (CONFIG.suppressSlugLocale && configLanguages.length > 1 && !isLandingPage) {
+  if (SSR_CONFIG.suppressSlugLocale && configLanguages.length > 1 && !isLandingPage) {
     let [, ...languagesWithoutDefault] = configLanguages // make sure default language is always first of array
-    if (CONFIG.suppressSlugIncludeDefault) {
-      languagesWithoutDefault.unshift(CONFIG.defaultLocale)
+    if (SSR_CONFIG.suppressSlugIncludeDefault) {
+      languagesWithoutDefault.unshift(SSR_CONFIG.defaultLocale)
     }
     languagesWithoutDefault.forEach((locale) => {
       all.push(LmStoryblokService.get(`cdn/stories/${locale}/${pageSlug}`))
@@ -112,7 +113,7 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
   if (page === null && otherPageLanguages.length) {
     otherPageLanguages.forEach((value, index) => {
       if (value) {
-        locale = configLanguages[CONFIG.suppressSlugIncludeDefault ? index : index + 1] // overwrite locale
+        locale = configLanguages[SSR_CONFIG.suppressSlugIncludeDefault ? index : index + 1] // overwrite locale
         page = value // overwrite page values of localized page
       }
     })

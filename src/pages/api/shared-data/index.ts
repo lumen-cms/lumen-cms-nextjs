@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { LmStoryblokService } from 'lumen-cms-core'
 import { fetchSharedStoryblokContent } from '../../../utils/initial-props/storyblokDeliveryResolver'
+import LmStoryblokService from '../../../utils/StoryblokService'
 
 export default async function sharedData(req: NextApiRequest, res: NextApiResponse) {
   const locale = req.query.locale

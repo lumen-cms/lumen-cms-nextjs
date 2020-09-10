@@ -1,5 +1,6 @@
-import { CONFIG, LmStoryblokService } from 'lumen-cms-core'
 import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
+import { SSR_CONFIG } from '../ssrConfig'
+import LmStoryblokService from '../StoryblokService'
 
 export function getStoryblokPagesConfig() {
   const params: any = {
@@ -15,8 +16,8 @@ export function getStoryblokPagesConfig() {
       }
     }
   }
-  if (CONFIG.rootDirectory) {
-    params.starts_with = `${CONFIG.rootDirectory}/`
+  if (SSR_CONFIG.rootDirectory) {
+    params.starts_with = `${SSR_CONFIG.rootDirectory}/`
   }
   return params
 }

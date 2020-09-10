@@ -1,8 +1,8 @@
 import { GetStaticProps } from 'next'
-import { LmStoryblokService } from 'lumen-cms-core'
 import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { getBaseProps } from './getBaseProps'
 import getPageProps from './getPageProps'
+import LmStoryblokService from '../StoryblokService'
 
 const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppPageProps, revalidate?: number }> => {
   // const slug = Array.isArray(currentSlug) ? currentSlug.join('/') : currentSlug

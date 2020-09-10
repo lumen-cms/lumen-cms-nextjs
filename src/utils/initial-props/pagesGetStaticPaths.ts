@@ -1,7 +1,7 @@
 import { GetStaticPaths } from 'next'
 import { PageItem } from 'lumen-cms-core/src/typings/generated/schema'
-import { internalLinkHandler } from 'lumen-cms-core'
 import { getAllStoriesOfProject } from './storyblokPagesConfig'
+import { internalLinkHandler } from '../linkHandler'
 
 const pagesGetStaticPaths: GetStaticPaths = async () => {
   const stories: PageItem[] = await getAllStoriesOfProject()

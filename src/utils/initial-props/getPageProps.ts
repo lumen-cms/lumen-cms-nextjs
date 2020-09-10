@@ -1,6 +1,5 @@
 import { GlobalStoryblok, PageStoryblok } from 'lumen-cms-core/src/typings/generated/components-schema'
 import { AppPageProps } from 'lumen-cms-core/src/typings/app'
-import { CONFIG } from 'lumen-cms-core'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { collectComponentData } from './traversePageContent'
@@ -17,12 +16,12 @@ const getPageProps = async (slug: string | string[], ssrHostname?: string): Prom
   })
 
   // console.log('after fetch SSR', typeof page, typeof settings)
-  const defaultLocale = CONFIG.defaultLocale || 'en'
+  const defaultLocale = SSR_CONFIG.defaultLocale || 'en'
   if (defaultLocale && !locale) {
     locale = defaultLocale
   }
 
-  const overwriteLocale = CONFIG.overwriteLocale
+  const overwriteLocale = SSR_CONFIG.overwriteLocale
   if (overwriteLocale) {
     locale = overwriteLocale
   }

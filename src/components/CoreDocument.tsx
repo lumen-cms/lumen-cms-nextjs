@@ -1,8 +1,9 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
-import { CONFIG, LmStoryblokService } from 'lumen-cms-core'
 import React from 'react'
 import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { ServerStyleSheets } from '@material-ui/core/styles'
+import { SSR_CONFIG } from '..'
+import LmStoryblokService from '../utils/StoryblokService'
 
 type CoreDocumentProps = {
   props: AppPageProps
@@ -11,8 +12,8 @@ type CoreDocumentProps = {
 
 export function LmCoreDocument({ props, isDevelopment }: CoreDocumentProps): JSX.Element {
   const { settings } = props
-  const googleAnalyticsId = (settings?.setup_google_analytics) || CONFIG.GA
-  const locale = settings?.setup_language || CONFIG.defaultLocale
+  const googleAnalyticsId = (settings?.setup_google_analytics) || SSR_CONFIG.GA
+  const locale = settings?.setup_language || SSR_CONFIG.defaultLocale
 
   return (
     <Html lang={locale ? locale : undefined}>
