@@ -1,7 +1,7 @@
 import { StoriesParams } from 'storyblok-js-client'
 import { AppApiRequestPayload } from 'lumen-cms-core/src/typings/app'
 import { SSR_CONFIG } from '../ssrConfig'
-import LmStoryblokService from '../StoryblokService'
+import { LmStoryblokService } from 'lumen-cms-utils'
 
 const rootDirectory = SSR_CONFIG.rootDirectory
 

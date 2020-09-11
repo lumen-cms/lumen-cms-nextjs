@@ -1,5 +1,5 @@
 import { SSR_CONFIG } from '../ssrConfig'
-import LmStoryblokService from '../StoryblokService'
+import { LmStoryblokService } from 'lumen-cms-utils'
 
 export const prepareForStoryblok = (slug: string | string[] = 'home') => {
   let knownLocale = undefined

@@ -3,7 +3,7 @@ import React from 'react'
 import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { SSR_CONFIG } from '../utils/ssrConfig'
-import LmStoryblokService from '../utils/StoryblokService'
+import { LmStoryblokService } from 'lumen-cms-utils'
 
 type CoreDocumentProps = {
   props: AppPageProps
