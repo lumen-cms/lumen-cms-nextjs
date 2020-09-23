@@ -5,14 +5,13 @@ import { collectComponentData } from './traversePageContent'
 import { SSR_CONFIG } from '../ssrConfig'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
 
-const getPageProps = async (slug: string | string[], ssrHostname?: string): Promise<AppPageProps> => {
+const getPageProps = async (slug: string | string[], insideStoryblok?: boolean): Promise<AppPageProps> => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
 
   let { page, settings, allCategories = [], allStories = [], locale, allStaticContent = [] } = await apiRequestResolver({
     pageSlug,
     locale: knownLocale,
-    isLandingPage: isLandingPage,
-    ssrHostname
+    isLandingPage: isLandingPage
   })
 
   // console.log('after fetch SSR', typeof page, typeof settings)
@@ -46,7 +45,8 @@ const getPageProps = async (slug: string | string[], ssrHostname?: string): Prom
     allCategories,
     allStaticContent,
     locale,
-    listWidgetData: componentData || null
+    listWidgetData: componentData || null,
+    insideStoryblok: !!insideStoryblok
   }
 
   await Promise.all(SSR_CONFIG.ssrHooks.pageProps.map((func) => func(props)))

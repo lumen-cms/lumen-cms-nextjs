@@ -19,10 +19,10 @@ const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppP
       LmStoryblokService.setDevMode()
       LmStoryblokService.setQuery(previewData)
     }
-    const pageProps = await getPageProps(slug)
+    const pageProps = await getPageProps(slug, !!preview)
     // endMeasureTime()
     return {
-      props: { ...pageProps, insideStoryblok: !!preview },
+      props: pageProps,
       revalidate: 300
     }
   } catch (e) {

@@ -22,14 +22,11 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
     LmStoryblokService.setDevMode()
     LmStoryblokService.setQuery(query)
 
-    const pageProps = await getPageProps(slug, hostname)
+    const pageProps = await getPageProps(slug, true)
     // endMeasureTime()
 
     return {
-      props: {
-        ...pageProps,
-        insideStoryblok: true
-      }
+      props: pageProps
     }
   } catch (e) {
     console.log('error', e)

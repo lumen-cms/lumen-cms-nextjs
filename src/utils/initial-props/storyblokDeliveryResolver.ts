@@ -77,7 +77,6 @@ type ApiProps = {
   pageSlug: string
   locale?: string
   isLandingPage?: boolean
-  ssrHostname?: string
 }
 const configLanguages = SSR_CONFIG.languages
 
