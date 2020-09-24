@@ -65,7 +65,7 @@ export const fetchSharedStoryblokContent = (locale?: string) => {
   return Promise.all([
     LmStoryblokService.get(getSettingsPath({ locale })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    fetch(`https://lumen-cms-api.vercel.app/api/all-stories?token=${SSR_CONFIG.publicToken}&locale=${rootDirectory || locale || ''}`)
+    fetch(`https://cdn-api.lumen.media/api/all-stories?token=${SSR_CONFIG.publicToken}&locale=${rootDirectory || locale || ''}`)
       .then(r => r.json()),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
