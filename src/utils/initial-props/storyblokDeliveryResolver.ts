@@ -54,25 +54,6 @@ const getStaticContainer = ({ locale }: { locale?: string }) => {
   return params
 }
 
-const getStoriesParams = ({ locale }: { locale?: string }) => {
-  const params: StoriesParams = {
-    per_page: 100,
-    excluding_fields: 'body,right_body,meta_robots,property,meta_description,seo_body',
-    sort_by: 'published_at:desc',
-    filter_query: {
-      'component': {
-        'in': 'page'
-      }
-    }
-  }
-  if (rootDirectory) {
-    params.starts_with = `${rootDirectory}/`
-  } else if (locale) {
-    params.starts_with = `${locale}/`
-  }
-  return params
-}
-
 type ApiProps = {
   pageSlug: string
   locale?: string
@@ -84,7 +65,8 @@ export const fetchSharedStoryblokContent = (locale?: string) => {
   return Promise.all([
     LmStoryblokService.get(getSettingsPath({ locale })),
     LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    LmStoryblokService.getAll('cdn/stories', getStoriesParams({ locale })),//    Promise.resolve([])/**/,
+    fetch(`https://lumen-cms-api.vercel.app/api/all-stories?token=${SSR_CONFIG.publicToken}&locale=${rootDirectory || locale || ''}`)
+      .then(r => r.json()),
     LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
   ])
 }
