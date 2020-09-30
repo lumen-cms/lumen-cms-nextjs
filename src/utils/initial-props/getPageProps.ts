@@ -1,9 +1,9 @@
-import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { prepareForStoryblok } from './prepareStoryblokRequest'
 import { apiRequestResolver } from './storyblokDeliveryResolver'
 import { collectComponentData } from './traversePageContent'
 import { SSR_CONFIG } from '../ssrConfig'
 import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/components-schema'
+import { AppPageProps } from '../../typings/app'
 
 const getPageProps = async (slug: string | string[], insideStoryblok?: boolean): Promise<AppPageProps> => {
   const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)

@@ -93,7 +93,7 @@ export interface ButtonStoryblok {
   corners?: "lm-button-shaped" | "lm-button-square";
   font?: "alt1" | "alt2" | "alt3" | "alt4";
   align?: "flex-start" | "flex-end";
-  properties?: ("disable-ripple" | "disable-shadow" | "no-linebreak")[];
+  properties?: ("disable-ripple" | "disable-shadow" | "no-linebreak" | "fullWidth")[];
   label?: string;
   open_external?: boolean;
   image?: string;
@@ -136,7 +136,7 @@ export interface CardListStoryblok {
     | "overlay_content_no_space"
   )[];
   image_size?: "cover" | "contain" | "initial" | "auto";
-  image_ratio?: "16x9" | "1x1" | "4x3" | "3x2";
+  image_ratio?: "16x9" | "1x1" | "4x3" | "3x2" | "2x3";
   hide_image?: boolean;
   border_radius?: "0" | "2" | "4" | "";
   shadow_effect?: "faded" | "float" | "hover" | "lightTop" | "bouncy" | "soft";
@@ -177,6 +177,13 @@ export interface CardListStoryblok {
 }
 
 export interface CardListItemStoryblok {
+  image?: string;
+  action_width?: string;
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  body?: any[];
+  action_headline?: any[];
   card_actions_body?: any[];
   link?: {
     cached_url?: string;
@@ -184,11 +191,6 @@ export interface CardListItemStoryblok {
     [k: string]: any;
   };
   open_external?: boolean;
-  body?: any[];
-  image?: string;
-  title?: string;
-  subtitle?: string;
-  description?: string;
   _uid: string;
   component: "card_list_item";
   [k: string]: any;
@@ -325,6 +327,20 @@ export interface EcommerceFastspringProductStoryblok {
   [k: string]: any;
 }
 
+export interface EcommercePaypalConfigStoryblok {
+  sdk_client_id: string;
+  _uid: string;
+  component: "ecommerce_paypal_config";
+  [k: string]: any;
+}
+
+export interface EcommercePaypalProductStoryblok {
+  price?: number;
+  _uid: string;
+  component: "ecommerce_paypal_product";
+  [k: string]: any;
+}
+
 export interface EcommerceShopifyCheckoutStoryblok {
   product_id?: number;
   product_variant_id?: string;
@@ -334,9 +350,32 @@ export interface EcommerceShopifyCheckoutStoryblok {
 }
 
 export interface EcommerceShopifyConfigStoryblok {
+  image_container_height?: number;
+  hide_description?: boolean;
+  product_title?: any[];
+  product_variant_name?: any[];
+  product_price?: any[];
+  product_add_to_cart?: any[];
+  product_checkout?: any[];
+  product_variant?: any[];
+  product_active_variant?: any[];
+  product_description_trigger?: any[];
   sdk_url?: string;
+  floating_button_color?: "primary" | "secondary" | "success" | "info" | "warning";
   domain?: string;
   access_token?: string;
+  currency_prefix?: string;
+  floating_badge_color?: "primary" | "secondary" | "error" | "success" | "info" | "warning";
+  columns_justify?: "space-between" | "space-around" | "space-evenly" | "center" | "flex-start" | "flex-end";
+  columns_align_items?: "center" | "flex-start" | "flex-end" | "stretch";
+  cart_toolbar?: any[];
+  cart_footer?: any[];
+  cart_checkout?: any[];
+  cart_footer_additional?: any[];
+  columns_first_width?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "auto" | "true";
+  columns_second_width?: "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "auto" | "true";
+  carousel_auto_play?: boolean;
+  carousel_hide_indicator?: boolean;
   _uid: string;
   component: "ecommerce_shopify_config";
   [k: string]: any;
@@ -353,18 +392,30 @@ export interface EcommerceShopifyIframeStoryblok {
   [k: string]: any;
 }
 
+export interface EcommerceSnipcartConfigStoryblok {
+  url?: string;
+  data_api_key?: string;
+  _uid: string;
+  component: "ecommerce_snipcart_config";
+  [k: string]: any;
+}
+
+export interface EcommerceSnipcartProductStoryblok {
+  data_id?: number;
+  price?: number;
+  description?: string;
+  name?: string;
+  image_url?: string;
+  _uid: string;
+  component: "ecommerce_snipcart_product";
+  [k: string]: any;
+}
+
 export interface ErrorPageStoryblok {
   title?: string;
   body?: any[];
   _uid: string;
   component: "error_page";
-  [k: string]: any;
-}
-
-export interface FastspringProductStoryblok {
-  data_fsc_item_path?: string;
-  _uid: string;
-  component: "fastspring_product";
   [k: string]: any;
 }
 
@@ -381,21 +432,16 @@ export interface FlexRowStoryblok {
 }
 
 export interface FormStoryblok {
-  submit_button_text?: string;
-  submit_button_color?: "default" | "inherit" | "primary" | "secondary";
-  submit_button_full_width?: boolean;
-  submit_button_position?: "right" | "left";
-  submit_button_variant?: "text" | "outlined" | "contained";
-  submit_button_size?: "large" | "medium" | "small";
   api?: string;
   body?: any[];
   success_body?: any[];
+  error_body?: any[];
   error_msg_required?: string;
+  fields_min_width?: number;
+  submit_button: any[];
   fields_border?: "standard" | "filled" | "outlined";
   fields_full_width?: boolean;
   fields_gap?: "0" | "2" | "4" | "8" | "16" | "24";
-  fields_min_width?: number;
-  submit_button_top_gap?: number;
   _uid: string;
   component: "form";
   [k: string]: any;
@@ -443,6 +489,15 @@ export interface FormTextfieldStoryblok {
 }
 
 export interface GlobalStoryblok {
+  website_title?: string;
+  website_slogan?: string;
+  setup_language?: string;
+  setup_supported_languages?: string;
+  setup_google_analytics?: string;
+  setup_google_site_verification?: string;
+  setup_facebook_pixel?: string;
+  pwa_app_name?: string;
+  pwa_app_description?: string;
   tawkto?: string;
   chat_button?: any[];
   setup_favicon?: string;
@@ -450,12 +505,6 @@ export interface GlobalStoryblok {
   website_logo_xs?: string;
   website_logo_invert_xs?: string;
   website_logo_invert?: string;
-  website_title?: string;
-  website_slogan?: string;
-  setup_language?: string;
-  setup_supported_languages?: string;
-  setup_google_analytics?: string;
-  setup_google_site_verification?: string;
   snackbars?: any[];
   drawer_body?: any[];
   drawer_variant?: "persistent" | "temporary";
@@ -502,6 +551,12 @@ export interface GlobalStoryblok {
 }
 
 export interface HeadlineStoryblok {
+  count_start?: number;
+  count_end?: number;
+  prefix?: string;
+  suffix?: string;
+  count_duration?: number;
+  animation?: "linear" | "easeInCubic" | "easeOutCubic";
   text?: string;
   text_xs?: string;
   typography?:
@@ -611,7 +666,7 @@ export interface ImageStoryblok {
 }
 
 export interface ImageCoreStoryblok {
-  url?: string;
+  url: string;
   alt?: string;
   width?: number;
   height?: number;
@@ -761,11 +816,12 @@ export interface LogoStoryblok {
 }
 
 export interface MotionStoryblok {
-  body?: any[];
   type?: "fade" | "grow" | "slide" | "zoom" | "collapse";
   duration?: number;
-  slide_direction?: "left" | "right" | "down" | "up";
   threshold?: number;
+  slide_direction?: "left" | "right" | "down" | "up";
+  enable_overflow?: boolean;
+  body?: any[];
   _uid: string;
   component: "motion";
   [k: string]: any;
@@ -871,6 +927,10 @@ export interface ParallaxItemStoryblok {
 }
 
 export interface PlayerStoryblok {
+  url?: string;
+  ratio?: "16x9" | "4x3" | "3x2" | "1x1";
+  width?: string;
+  height?: string;
   controls?: boolean;
   playing?: boolean;
   loop?: boolean;
@@ -878,10 +938,6 @@ export interface PlayerStoryblok {
   playsinline?: boolean;
   volume?: number;
   light?: boolean;
-  url?: string;
-  ratio?: "16x9" | "4x3" | "3x2" | "1x1";
-  width?: string;
-  height?: string;
   fallback_image?: string;
   _uid: string;
   component: "player";
@@ -971,24 +1027,6 @@ export interface RowStoryblok {
   [k: string]: any;
 }
 
-export interface RowNestedStoryblok {
-  body?: any[];
-  fluid_width?: boolean;
-  column_gap?: number;
-  grid_gap?: number;
-  align?: "left" | "right";
-  background?: any[];
-  grid_margin_desktop?: string;
-  grid_margin_tablet?: string;
-  grid_margin_phone?: string;
-  grid_gutter_desktop?: string;
-  grid_gutter_tablet?: string;
-  grid_gutter_phone?: string;
-  _uid: string;
-  component: "row_nested";
-  [k: string]: any;
-}
-
 export interface SectionStoryblok {
   section_identifier?: string;
   body?: any[];
@@ -1027,6 +1065,64 @@ export interface SectionVideoBgStoryblok {
   [k: string]: any;
 }
 
+export interface SeoCorporateContactStoryblok {
+  url: string;
+  logo?: string;
+  contact_point: any[];
+  _uid: string;
+  component: "seo_corporate_contact";
+  [k: string]: any;
+}
+
+export interface SeoCorporateContactPointStoryblok {
+  telephone: string;
+  contact_type: string;
+  area_served?: string;
+  available_language?: string;
+  _uid: string;
+  component: "seo_corporate_contact_point";
+  [k: string]: any;
+}
+
+export interface SeoLocalBusinessStoryblok {
+  id: string;
+  type: string;
+  name: string;
+  url?: string;
+  description: string;
+  address_country: string;
+  address_locality: string;
+  address_region?: string;
+  address_postal_code: string;
+  address_street: string;
+  images: any[];
+  telephone?: string;
+  geo_latitude?: string;
+  geo_longitude?: string;
+  opening_hours?: any[];
+  _uid: string;
+  component: "seo_local_business";
+  [k: string]: any;
+}
+
+export interface SeoLocalBusinessOpeningHourStoryblok {
+  opens: string;
+  closes: string;
+  day_of_week: (
+    | "Monday"
+    | "Tuesday"
+    | "Wednesday"
+    | "Thursday"
+    | "Friday"
+    | "Saturday"
+    | "Sunday"
+    | "PublicHolidays"
+  )[];
+  _uid: string;
+  component: "seo_local_business_opening_hour";
+  [k: string]: any;
+}
+
 export interface SeoOpenGraphStoryblok {
   title?: string;
   description?: string;
@@ -1038,6 +1134,53 @@ export interface SeoOpenGraphStoryblok {
   images?: any[];
   _uid: string;
   component: "seo_open_graph";
+  [k: string]: any;
+}
+
+export interface SeoProductStoryblok {
+  product_name: string;
+  sku?: string;
+  images?: any[];
+  description?: string;
+  brand?: string;
+  offers: any[];
+  _uid: string;
+  component: "seo_product";
+  [k: string]: any;
+}
+
+export interface SeoProductOfferStoryblok {
+  price: number;
+  price_currency: string;
+  item_condition?:
+    | "https://schema.org/DamagedCondition"
+    | "https://schema.org/NewCondition"
+    | "https://schema.org/RefurbishedCondition"
+    | "https://schema.org/UsedCondition";
+  availability?:
+    | "https://schema.org/Discontinued"
+    | "https://schema.org/InStock"
+    | "https://schema.org/InStoreOnly"
+    | "https://schema.org/LimitedAvailability"
+    | "https://schema.org/OnlineOnly"
+    | "https://schema.org/OutOfStock"
+    | "https://schema.org/PreOrder"
+    | "https://schema.org/PreSale"
+    | "https://schema.org/SoldOut";
+  url?: string;
+  seller_name: string;
+  _uid: string;
+  component: "seo_product_offer";
+  [k: string]: any;
+}
+
+export interface SeoSocialProfileStoryblok {
+  type: "Person" | "Organization";
+  name: string;
+  url: string;
+  same_as: string;
+  _uid: string;
+  component: "seo_social_profile";
   [k: string]: any;
 }
 
@@ -1069,14 +1212,15 @@ export interface SliderStoryblok {
 }
 
 export interface SnackbarStoryblok {
+  anchor_horizontal?: "center" | "left" | "right";
+  anchor_vertical?: "top" | "bottom";
+  button_top_align?: boolean;
+  width?: string;
   display?: "hide_on_scroll" | "show_on_scroll";
   auto_show?: number;
   auto_close?: number;
   square?: boolean;
   elevation?: number;
-  width?: string;
-  anchor_vertical?: "top" | "bottom";
-  anchor_horizontal?: "center" | "left" | "right";
   dialog?: boolean;
   descriptions?: any[];
   close_action?: any[];

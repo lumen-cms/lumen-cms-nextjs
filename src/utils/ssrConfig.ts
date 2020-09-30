@@ -1,5 +1,5 @@
-import { AppPageProps } from 'lumen-cms-core/dist/typings/app'
 import { SitemapStream } from 'sitemap'
+import { AppPageProps } from '../typings/app'
 
 type SsrConfigProps = {
   publicToken: string

@@ -1,9 +1,9 @@
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
-import { AppPageProps } from 'lumen-cms-core/src/typings/app'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { SSR_CONFIG } from '../utils/ssrConfig'
 import { LmStoryblokService } from 'lumen-cms-utils'
+import { AppPageProps } from '../typings/app'
 
 type CoreDocumentProps = {
   props: AppPageProps
@@ -18,7 +18,21 @@ export function LmCoreDocument({ props, isDevelopment }: CoreDocumentProps): JSX
 
   return (
     <Html lang={locale ? locale : undefined}>
-      <Head />
+      <Head>
+        {settings?.pwa_app_name && settings?.pwa_app_description && (
+          <>
+            <meta name='application-name' content={settings.pwa_app_name} />
+            <meta name='apple-mobile-web-app-capable' content='yes' />
+            <meta name='apple-mobile-web-app-status-bar-style' content='default' />
+            <meta name='apple-mobile-web-app-title' content={settings.pwa_app_name} />
+            <meta name='description' content={settings.pwa_app_description} />
+            <meta name='format-detection' content='telephone=no' />
+            <meta name='mobile-web-app-capable' content='yes' />
+            <meta name='theme-color' content='#FFFFFF' />
+            <link rel='manifest' href='/manifest.json' />
+          </>
+        )}
+      </Head>
       <body className="lm-body__root">
       <Main />
       <script dangerouslySetInnerHTML={{

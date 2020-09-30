@@ -1,6 +1,6 @@
 {
   "name": "lumen-cms-nextjs",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "NextJS and Storyblok with LumenCMS",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -19,7 +19,8 @@
     "prepublishOnly": "npm run build-ts",
     "gen-ts-schema": "node generate-ts-schema.js",
     "fetch-storyblok-components": "storyblok pull-components --space=82895",
-    "codegen": "graphql-codegen --config codegen.yml"
+    "codegen": "graphql-codegen --config codegen.yml",
+    "update-storyblok": "npm run fetch-storyblok-components && npm run gen-ts-schema && npm run codegen"
   },
   "prettier": {
     "printWidth": 80,
