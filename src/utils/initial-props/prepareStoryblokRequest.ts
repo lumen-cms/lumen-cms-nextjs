@@ -1,7 +1,6 @@
 import { SSR_CONFIG } from '../ssrConfig'
-import { LmStoryblokService } from 'lumen-cms-utils'
 
-export const prepareForStoryblok = (slug: string | string[] = 'home') => {
+export const prepareForStoryblok = (slug: string | string[] = 'home', insideStoryblok?: boolean) => {
   let knownLocale = undefined
   let isLandingPage = undefined
   let slugAsArray = Array.isArray(slug) ? slug : [slug]
@@ -11,7 +10,7 @@ export const prepareForStoryblok = (slug: string | string[] = 'home') => {
     // if the first entry is not root directory append root directory
     slugAsArray[0] !== rootDirectory && slugAsArray.unshift(rootDirectory)
   } else {
-    if (!!SSR_CONFIG.suppressSlugLocale && !LmStoryblokService.getDevMode()) {
+    if (!!SSR_CONFIG.suppressSlugLocale && !insideStoryblok) {
       // suppress slug locale so remove any language key from the array (mainly for storyblok backend)
       if (SSR_CONFIG.languages.includes(slugAsArray[0])) {
         // first directory is a locale

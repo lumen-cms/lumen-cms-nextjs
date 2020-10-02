@@ -1,7 +1,5 @@
-import { StoriesParams } from 'storyblok-js-client'
 import { AppApiRequestPayload } from 'lumen-cms-core/src/typings/app'
 import { SSR_CONFIG } from '../ssrConfig'
-import { LmStoryblokService } from 'lumen-cms-utils'
 
 const rootDirectory = SSR_CONFIG.rootDirectory
 
@@ -18,65 +16,50 @@ const getSettingsPath = ({ locale }: { locale?: string }) => {
   return `cdn/stories/${directory ? `${directory}/` : ''}settings`
 }
 
-const getCategoryParams = ({ locale }: { locale?: string }) => {
-  const params: StoriesParams = {
-    per_page: 100,
-    sort_by: 'content.name:asc',
-    filter_query: {
-      'component': {
-        'in': 'category'
-      }
-    }
-  }
-  if (rootDirectory) {
-    params.starts_with = `${rootDirectory}/`
-  } else if (locale) {
-    params.starts_with = `${locale}/`
-  }
-  return params
-}
-
-const getStaticContainer = ({ locale }: { locale?: string }) => {
-  const params: StoriesParams = {
-    per_page: 25,
-    sort_by: 'content.name:asc',
-    filter_query: {
-      'component': {
-        'in': 'static_container'
-      }
-    }
-  }
-  if (rootDirectory) {
-    params.starts_with = `${rootDirectory}/`
-  } else if (locale) {
-    params.starts_with = `${locale}/`
-  }
-  return params
-}
 
 type ApiProps = {
   pageSlug: string
   locale?: string
   isLandingPage?: boolean
+  insideStoryblok?: boolean
 }
 const configLanguages = SSR_CONFIG.languages
 
-export const fetchSharedStoryblokContent = (locale?: string) => {
+export const fetchSharedStoryblokContent = ({ locale, insideStoryblok }: { locale?: string, insideStoryblok?: boolean }) => {
+  let isDev = insideStoryblok || process.env.NODE_ENV === 'development'
+  const token = isDev ? SSR_CONFIG.previewToken : SSR_CONFIG.publicToken
+  const getParams = new URLSearchParams()
+  getParams.append('token', token)
+  if (rootDirectory || locale) {
+    getParams.append('locale', rootDirectory || locale)
+  }
+  if (isDev) {
+    getParams.append('no_cache', 'true')
+  }
   return Promise.all([
-    LmStoryblokService.get(getSettingsPath({ locale })),
-    LmStoryblokService.getAll('cdn/stories', getCategoryParams({ locale })),
-    fetch(`https://cdn-api.lumen.media/api/all-stories?token=${SSR_CONFIG.publicToken}&locale=${rootDirectory || locale || ''}`)
+    fetch(`https://cdn-api.lumen.media/api/single-story?token=${token}&slug=${getSettingsPath({ locale })}${isDev ? '&no_cache=true' : ''}`)
       .then(r => r.json()),
-    LmStoryblokService.getAll('cdn/stories', getStaticContainer({ locale }))
+    fetch(`https://cdn-api.lumen.media/api/all-tag-categories?${getParams.toString()}`)
+      .then(r => r.json()),
+    fetch(`https://cdn-api.lumen.media/api/all-stories?${getParams.toString()}`)
+      .then(r => r.json()),
+    fetch(`https://cdn-api.lumen.media/api/all-static-container?${getParams.toString()}`)
+      .then(r => r.json())
   ])
 }
 
-export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: ApiProps): Promise<AppApiRequestPayload> => {
-
-  const [settings, categories, stories, staticContent] = await fetchSharedStoryblokContent(locale)
-
+export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage, insideStoryblok }: ApiProps): Promise<AppApiRequestPayload> => {
+  const [settings, categories, stories, staticContent] = await fetchSharedStoryblokContent({ locale, insideStoryblok })
+  let isDev = insideStoryblok || process.env.NODE_ENV === 'development'
+  const token = isDev ? SSR_CONFIG.previewToken : SSR_CONFIG.publicToken
+  const getParams = new URLSearchParams()
+  getParams.append('token', token)
+  if (isDev) {
+    getParams.append('no_cache', 'true')
+  }
   const all: any[] = [
-    LmStoryblokService.get(`cdn/stories/${pageSlug}`)
+    fetch(`https://cdn-api.lumen.media/api/single-story?slug=cdn/stories/${pageSlug}&${getParams.toString()}`)
+      .then(r => r.json())
   ]
 
   if (SSR_CONFIG.suppressSlugLocale && configLanguages.length > 1 && !isLandingPage) {
@@ -84,8 +67,11 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     if (SSR_CONFIG.suppressSlugIncludeDefault) {
       languagesWithoutDefault.unshift(SSR_CONFIG.defaultLocale)
     }
-    languagesWithoutDefault.forEach((locale) => {
-      all.push(LmStoryblokService.get(`cdn/stories/${locale}/${pageSlug}`))
+    languagesWithoutDefault.forEach((currentLocale) => {
+      all.push(
+        fetch(`https://cdn-api.lumen.media/api/single-story?slug=cdn/stories/${currentLocale}/${pageSlug}&${getParams.toString()}`)
+          .then(r => r.json())
+      )
     })
   }
 
@@ -100,7 +86,10 @@ export const apiRequestResolver = async ({ pageSlug, locale, isLandingPage }: Ap
     })
 
     // make 2nd API calls to fetch locale based settings and other values
-    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await fetchSharedStoryblokContent(locale)
+    let [localizedSettings, localizedCategories, localizedStories, localizedStaticContent] = await fetchSharedStoryblokContent({
+      locale,
+      insideStoryblok
+    })
 
     return {
       page,

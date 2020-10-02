@@ -1,7 +1,6 @@
 import { GetStaticProps } from 'next'
 import { getBaseProps } from './getBaseProps'
 import getPageProps from './getPageProps'
-import { LmStoryblokService } from 'lumen-cms-utils'
 import { AppPageProps } from '../../typings/app'
 
 const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppPageProps, revalidate?: number }> => {
@@ -15,10 +14,6 @@ const pagesGetStaticProps: GetStaticProps = async (props): Promise<{ props: AppP
   }
   try {
     // console.log('pagesGetStaticProps', previewData, props)
-    if (preview) {
-      LmStoryblokService.setDevMode()
-      LmStoryblokService.setQuery(previewData)
-    }
     const pageProps = await getPageProps(slug, !!preview)
     // endMeasureTime()
     return {

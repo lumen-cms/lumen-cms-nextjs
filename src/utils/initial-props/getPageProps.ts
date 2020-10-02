@@ -6,12 +6,13 @@ import { GlobalStoryblok, PageStoryblok } from '../../typings/generated/componen
 import { AppPageProps } from '../../typings/app'
 
 const getPageProps = async (slug: string | string[], insideStoryblok?: boolean): Promise<AppPageProps> => {
-  const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug)
+  const { isLandingPage, knownLocale, pageSlug } = prepareForStoryblok(slug, insideStoryblok)
 
   let { page, settings, allCategories = [], allStories = [], locale, allStaticContent = [] } = await apiRequestResolver({
     pageSlug,
     locale: knownLocale,
-    isLandingPage: isLandingPage
+    isLandingPage: isLandingPage,
+    insideStoryblok
   })
 
   // console.log('after fetch SSR', typeof page, typeof settings)

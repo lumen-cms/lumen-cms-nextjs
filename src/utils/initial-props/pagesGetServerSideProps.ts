@@ -1,6 +1,5 @@
 import { GetServerSideProps } from 'next'
 import getPageProps from './getPageProps'
-import { LmStoryblokService } from 'lumen-cms-utils'
 
 
 const pagesGetServerSideProps: GetServerSideProps = async (props) => {
@@ -18,10 +17,6 @@ const pagesGetServerSideProps: GetServerSideProps = async (props) => {
 
     const slug = query?.index || 'home'
     // console.log('pagesGetServerSideProps', hostname, slug)
-
-    LmStoryblokService.setDevMode()
-    LmStoryblokService.setQuery(query)
-
     const pageProps = await getPageProps(slug, true)
     // endMeasureTime()
 

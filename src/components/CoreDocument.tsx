@@ -2,13 +2,13 @@ import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/do
 import React from 'react'
 import { ServerStyleSheets } from '@material-ui/core/styles'
 import { SSR_CONFIG } from '../utils/ssrConfig'
-import { LmStoryblokService } from 'lumen-cms-utils'
 import { AppPageProps } from '../typings/app'
 
 type CoreDocumentProps = {
   props: AppPageProps
   isDevelopment: boolean
 }
+const cv = new Date().getTime()
 
 export function LmCoreDocument({ props, isDevelopment }: CoreDocumentProps): JSX.Element {
   const { settings } = props
@@ -37,7 +37,7 @@ export function LmCoreDocument({ props, isDevelopment }: CoreDocumentProps): JSX
       <Main />
       <script dangerouslySetInnerHTML={{
         __html: `
-      var StoryblokCacheVersion = '${LmStoryblokService.getCacheVersion()}';`
+      var StoryblokCacheVersion = '${cv}';`
       }}></script>
       <NextScript />
       {!isDevelopment && facebookPixelId && (
