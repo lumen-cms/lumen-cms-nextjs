@@ -25,11 +25,11 @@
     }
   },
   "exclude": [
-
   ],
   "include": [
     "next-env.d.ts",
     "src/**/*.ts",
-    "src/**/*.tsx"
+    "src/**/*.tsx",
+    "node_modules/lumen-cms-core/src/**/*.d.ts"
   ]
 }
