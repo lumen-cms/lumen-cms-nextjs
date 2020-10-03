@@ -1,6 +1,7 @@
 const withPlugins = require('next-compose-plugins')
 // const {TsconfigPathsPlugin} = require('tsconfig-paths-webpack-plugin')
 const path = require('path')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 module.exports = function (env = {}, plugins = [], transpileModules = []) {
   const withTM = require('next-transpile-modules')([...['lumen-cms-core', 'lumen-cms-nextjs'], ...transpileModules])
@@ -26,8 +27,20 @@ module.exports = function (env = {}, plugins = [], transpileModules = []) {
       }
 
       config.resolve = config.resolve || {}
+      config.resolve.plugins = config.resolve.plugins || []
+      config.resolve.plugins.push(new TsconfigPathsPlugin())
+
       config.resolve.alias['react'] = path.join(process.cwd(), 'node_modules/react')
       config.resolve.alias['react-dom'] = path.join(process.cwd(), 'node_modules/react-dom')
+      // config.resolve.alias = {
+      //   ...config.resolve.alias,
+      // Will make webpack look for these modules in parent directories
+      // '@CONFIG': path.join(process.cwd(), 'node_modules/lumen-cms-core/src/utils/config.ts'),
+      // '@LmComponentRender': path.join(process.cwd(), 'node_modules/lumen-cms-core/src/components/CoreComponents.tsx'),
+      // '@context/*': path.join(process.cwd(), 'node_modules/lumen-cms-core/src/components/provider/context/*')
+      // '@your-project/styleguide': require.resolve('@your-project/styleguide')
+      // ...
+      // }
 
       const originalEntry = config.entry
       config.entry = async () => {
