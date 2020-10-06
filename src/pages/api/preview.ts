@@ -6,7 +6,7 @@ const setCookieSameSite = (res, value) => {
   const cookies = res.getHeader("Set-Cookie");
   res.setHeader(
     "Set-Cookie",
-    cookies?.map((cookie) =>
+    cookies?.map((cookie:string) =>
       cookie.replace(
         "SameSite=Lax",
         `SameSite=${value}; ${IS_PROD ? "Secure;" : ""}`
