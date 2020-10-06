@@ -1,5 +1,20 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
+const IS_PROD = process.env.NODE_ENV === "production";
+
+const setCookieSameSite = (res, value) => {
+  const cookies = res.getHeader("Set-Cookie");
+  res.setHeader(
+    "Set-Cookie",
+    cookies?.map((cookie) =>
+      cookie.replace(
+        "SameSite=Lax",
+        `SameSite=${value}; ${IS_PROD ? "Secure;" : ""}`
+      )
+    )
+  );
+};
+
 export default function preview(req: NextApiRequest, res: NextApiResponse) {
   let currentSlug = req.query.slug
 
@@ -25,6 +40,8 @@ export default function preview(req: NextApiRequest, res: NextApiResponse) {
   //   <script>window.location.href = '${currentSlug}'</script>
   //   </head>`
   // )
+  setCookieSameSite(res, "None");
+
   res.writeHead(307, { Location: currentSlug })
 
   res.end()

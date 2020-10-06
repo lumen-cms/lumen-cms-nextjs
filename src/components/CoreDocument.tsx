@@ -1,6 +1,5 @@
-import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
+import { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
-import { ServerStyleSheets } from '@material-ui/core/styles'
 import { SSR_CONFIG } from '../utils/ssrConfig'
 import { AppPageProps } from '../typings/app'
 
@@ -15,7 +14,6 @@ export function LmCoreDocument({ props, isDevelopment }: CoreDocumentProps): JSX
   const googleAnalyticsId = (settings?.setup_google_analytics) || SSR_CONFIG.GA
   const facebookPixelId = settings?.setup_facebook_pixel
   const locale = settings?.setup_language || SSR_CONFIG.defaultLocale
-
   return (
     <Html lang={locale ? locale : undefined}>
       <Head>
@@ -83,20 +81,4 @@ export function LmCoreDocument({ props, isDevelopment }: CoreDocumentProps): JSX
       </body>
     </Html>
   )
-}
-
-export async function documentGetInitialProps(ctx: DocumentContext) {
-  const sheets = new ServerStyleSheets()
-  const originalRenderPage = ctx.renderPage
-  ctx.renderPage = () =>
-    originalRenderPage({
-      enhanceApp: App => props => sheets.collect(<App {...props} />)
-    })
-
-  const initialProps = await Document.getInitialProps(ctx)
-  return {
-    ...initialProps,
-    // Styles fragment is rendered after the app and page rendering finish.
-    styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()]
-  }
 }
